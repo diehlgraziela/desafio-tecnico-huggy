@@ -12,7 +12,13 @@ defineProps<{
     <AppAvatar :src="avatar" />
     <div class="message-content">
       <h2 class="body-1-bold">{{ name }}</h2>
-      <p class="body-2-regular">{{ lastMessage }}</p>
+      <p class="body-2-regular">
+        {{
+          lastMessage.length > 10
+            ? lastMessage.slice(0, 10) + "..."
+            : lastMessage
+        }}
+      </p>
     </div>
   </li>
 </template>

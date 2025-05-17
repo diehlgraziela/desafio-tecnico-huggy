@@ -1,9 +1,13 @@
 <script setup lang="ts">
-const emit = defineEmits(["input"]);
+import uploadIcon from "~/assets/upload-icon.png";
+import deleteIcon from "~/assets/delete-icon.png";
+
+const emit = defineEmits(["input", "uploadImage"]);
 
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const fileInputRef = ref<HTMLInputElement | null>(null);
 const message = ref<string>("");
+const image = ref<string>("");
 
 const focus = () => {
   textareaRef.value?.focus();
@@ -14,7 +18,32 @@ const handleMessageInput = () => {
 };
 
 const handleImageUpload = () => {
+  if (image.value) image.value = "";
+
   fileInputRef.value?.click();
+};
+
+const uploadImage = async (file: File) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch("/api/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+  image.value = data[0].url;
+
+  emit("uploadImage", image.value);
+};
+
+const handleFileChange = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  if (target.files && target.files.length > 0) {
+    const file = target.files[0];
+    uploadImage(file);
+  }
 };
 </script>
 
@@ -26,16 +55,28 @@ const handleImageUpload = () => {
       placeholder="Escreva sua mensagem..."
       @input="handleMessageInput"
     />
-    <AppButton
-      variation="icon"
-      icon="cta"
-      class="upload-image"
-      @click="handleImageUpload"
-    >
-      <img src="/assets/image-icon.png" />
-    </AppButton>
+    <div :class="['upload-image', { 'border-top': image }]">
+      <div v-if="image" class="image-container">
+        <img :src="image" />
+      </div>
 
-    <input ref="fileInputRef" type="file" hidden />
+      <AppButton
+        class="upload-button"
+        variation="icon"
+        :icon="image ? 'danger' : 'cta'"
+        @click="handleImageUpload"
+      >
+        <img :src="image ? deleteIcon : uploadIcon" />
+      </AppButton>
+    </div>
+
+    <input
+      ref="fileInputRef"
+      type="file"
+      accept="image/*"
+      hidden
+      @change="handleFileChange"
+    />
   </div>
 </template>
 
@@ -44,14 +85,17 @@ const handleImageUpload = () => {
   border: 1px solid var(--border-neutral-1);
   border-radius: 4px;
   padding: 8px;
+  padding-bottom: 0;
   display: flex;
   flex-direction: column;
   cursor: text;
 }
+
 .textarea-container:active,
 .textarea-container:focus-within {
   box-shadow: 0 2px 8px 0 #0000001f;
 }
+
 textarea {
   resize: none;
   border: none;
@@ -59,12 +103,39 @@ textarea {
   width: 100%;
   padding: 4px 12px;
 }
+
 textarea::placeholder {
   color: var(--text-on-neutral-low-strong);
   font-size: var(--body-1);
 }
+
 .upload-image {
+  display: flex;
+  justify-content: flex-end;
   align-self: flex-end;
   font-size: 24px;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.upload-button {
+  align-self: flex-end;
+}
+
+.image-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-right: 8px;
+}
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.border-top {
+  border-top: 1px solid var(--border-neutral-1);
 }
 </style>

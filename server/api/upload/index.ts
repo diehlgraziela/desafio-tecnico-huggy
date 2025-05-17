@@ -1,0 +1,32 @@
+export default defineEventHandler(async (event) => {
+  const config = useRuntimeConfig(event);
+
+  const parts = await readMultipartFormData(event);
+
+  const uploadedFile = parts?.find((part) => part.name === "file");
+
+  if (!uploadedFile) {
+    return { error: "Arquivo não enviado" };
+  }
+
+  const formData = new FormData();
+
+  formData.append(
+    "file",
+    new File([uploadedFile.data], uploadedFile.filename || "Image", {
+      type: uploadedFile.type,
+    })
+  );
+
+  const response = await fetch("https://api.huggy.app/v3/chats/uploadFile/", {
+    method: event.method,
+    headers: {
+      Authorization: `Bearer ${config.apiSecret}`,
+    },
+    body: formData,
+  });
+
+  const data = await response.json();
+
+  return data;
+});

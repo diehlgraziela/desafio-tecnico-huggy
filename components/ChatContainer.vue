@@ -10,12 +10,14 @@ defineProps<{
 const emit = defineEmits(["sendText"]);
 
 const text = ref<string>("");
+const image = ref<string>("");
 const end = ref<HTMLElement | null>(null);
 
 const sendText = async () => {
-  emit("sendText", text.value);
+  emit("sendText", text.value, image.value);
 
   text.value = "";
+  image.value = "";
 };
 
 onMounted(() => {
@@ -41,6 +43,7 @@ onUpdated(() => {
         v-for="message in messages"
         :key="message.id"
         :message="message.text"
+        :image="message.file"
         :time="message.sendAt"
         :sender="message.senderType"
       />
@@ -49,7 +52,7 @@ onUpdated(() => {
     </div>
 
     <div class="writing-section">
-      <WritingBar @input="text = $event" />
+      <WritingBar @input="text = $event" @upload-image="image = $event" />
       <AppButton variation="success" :disabled="!text" @click="sendText">
         Enviar
       </AppButton>

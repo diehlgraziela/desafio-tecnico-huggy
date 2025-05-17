@@ -28,11 +28,12 @@ const getMessages = async (id: number) => {
   messages.value = response.reverse();
 };
 
-const sendText = async (text: string) => {
+const sendText = async (text: string, image?: string) => {
   await $fetch(`/api/chats/${selectedChat.value?.id}/messages`, {
     method: "POST",
     body: {
       text,
+      file: image,
     },
   });
 
