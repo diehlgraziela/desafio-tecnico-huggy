@@ -4,4 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxt/eslint"],
   css: ["~/assets/index.css"],
+  runtimeConfig: {
+    apiSecret: process.env.API_SECRET,
+  },
 });
