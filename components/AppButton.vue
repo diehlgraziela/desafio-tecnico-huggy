@@ -1,9 +1,3 @@
-<template>
-  <button :class="[variation, { icon: icon && variation === 'icon' }]">
-    <slot />
-  </button>
-</template>
-
 <script setup lang="ts">
 withDefaults(
   defineProps<{
@@ -16,6 +10,12 @@ withDefaults(
   }
 );
 </script>
+
+<template>
+  <button :class="[variation, { icon: icon && variation === 'icon' }]">
+    <slot />
+  </button>
+</template>
 
 <style scoped>
 button {
