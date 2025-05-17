@@ -36,7 +36,7 @@ const sendText = async (text: string) => {
     },
   });
 
-  getSelectedChat(chatId);
+  getMessages(chatId);
 };
 
 onMounted(async () => {

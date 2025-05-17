@@ -48,7 +48,6 @@ onUpdated(() => {
       <div ref="end" />
     </div>
 
-    <!-- <WritingSection /> -->
     <div class="writing-section">
       <WritingBar @input="text = $event" />
       <AppButton variation="success" :disabled="!text" @click="sendText">
