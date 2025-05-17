@@ -2,12 +2,12 @@
 withDefaults(
   defineProps<{
     variation?: "primary" | "success" | "icon";
-    icon?: "cta" | "danger";
+    icon?: "cta" | "danger" | undefined;
     disabled?: boolean;
   }>(),
   {
     variation: "primary",
-    icon: "cta",
+    icon: undefined,
   }
 );
 </script>
