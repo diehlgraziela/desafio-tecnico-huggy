@@ -14,7 +14,11 @@ withDefaults(
 
 <template>
   <button
-    :class="[variation, { icon: icon && variation === 'icon' }]"
+    :class="[
+      variation,
+      { icon: variation === 'icon' },
+      icon === 'cta' ? 'cta' : icon === 'danger' ? 'danger' : '',
+    ]"
     :disabled="disabled"
   >
     <slot />
@@ -69,13 +73,26 @@ button.icon {
   background-color: transparent;
   color: var(--text-on-neutral-low-weak);
   padding: 2px 4px;
+  width: 32px;
+  height: 28px;
+  display: grid;
+  place-content: center;
 }
-button.icon.cta:hover:not(:disabled) {
+button.cta:hover:not(:disabled) {
   background-color: var(--fill-primary-1);
   color: var(--text-on-neutral-low-cta);
   box-shadow: 0 4px 8px #00000029;
 }
-button.icon.cta:active:not(:disabled) {
+button.cta:active:not(:disabled) {
   background-color: var(--fill-primary-2);
+}
+
+button.danger:hover:not(:disabled) {
+  background-color: var(--fill-danger-1);
+  color: var(--text-on-neutral-low-danger);
+  box-shadow: 0 4px 8px #00000029;
+}
+button.danger:active:not(:disabled) {
+  background-color: var(--fill-danger-2);
 }
 </style>

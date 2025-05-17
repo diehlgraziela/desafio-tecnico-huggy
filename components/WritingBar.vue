@@ -2,6 +2,7 @@
 const emit = defineEmits(["input"]);
 
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
+const fileInputRef = ref<HTMLInputElement | null>(null);
 const message = ref<string>("");
 
 const focus = () => {
@@ -10,6 +11,10 @@ const focus = () => {
 
 const handleMessageInput = () => {
   emit("input", message.value);
+};
+
+const handleImageUpload = () => {
+  fileInputRef.value?.click();
 };
 </script>
 
@@ -21,7 +26,16 @@ const handleMessageInput = () => {
       placeholder="Escreva sua mensagem..."
       @input="handleMessageInput"
     />
-    <AppButton icon="cta" variation="icon" class="upload-image">+</AppButton>
+    <AppButton
+      variation="icon"
+      icon="cta"
+      class="upload-image"
+      @click="handleImageUpload"
+    >
+      <img src="/assets/image-icon.png" />
+    </AppButton>
+
+    <input ref="fileInputRef" type="file" hidden />
   </div>
 </template>
 
