@@ -7,7 +7,16 @@ defineProps<{
   messages: Message[];
 }>();
 
+const emit = defineEmits(["sendText"]);
+
+const text = ref<string>("");
 const end = ref<HTMLElement | null>(null);
+
+const sendText = async () => {
+  emit("sendText", text.value);
+
+  text.value = "";
+};
 
 onMounted(() => {
   if (end.value) end.value.scrollIntoView({ behavior: "smooth" });
@@ -39,7 +48,13 @@ onUpdated(() => {
       <div ref="end" />
     </div>
 
-    <WritingSection />
+    <!-- <WritingSection /> -->
+    <div class="writing-section">
+      <WritingBar @input="text = $event" />
+      <AppButton variation="success" :disabled="!text" @click="sendText">
+        Enviar
+      </AppButton>
+    </div>
   </section>
 </template>
 
@@ -78,5 +93,16 @@ onUpdated(() => {
 
 .spacer {
   margin-top: auto;
+}
+
+.writing-section {
+  background: var(--fill-neutral-low-0);
+  box-shadow: 0 -1px 6px 0 #00000008;
+  padding: 16px 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
 }
 </style>

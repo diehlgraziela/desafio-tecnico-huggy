@@ -15,9 +15,22 @@ const getChats = async () => {
 const getSelectedChat = async (chat: Chat) => {
   selectedChat.value = chat;
 
-  const response: Message[] = await $fetch(`/api/chats/${chat.id}/messages`);
+  const response: Message[] = await $fetch(`/api/chats/${chat.id}/messages`, {
+    method: "GET",
+  });
 
-  messages.value = response;
+  messages.value = response.reverse();
+};
+
+const sendText = async (text: string) => {
+  await $fetch(`/api/chats/${selectedChat.value?.id}/messages`, {
+    method: "POST",
+    body: {
+      text,
+    },
+  });
+
+  getSelectedChat(selectedChat.value!);
 };
 
 onMounted(() => {
@@ -33,6 +46,7 @@ onMounted(() => {
       v-if="selectedChat"
       :chat="selectedChat"
       :messages="messages"
+      @send-text="sendText"
     />
     <EmptyContainer v-else />
   </main>

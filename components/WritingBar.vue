@@ -1,14 +1,26 @@
 <script setup lang="ts">
+const emit = defineEmits(["input"]);
+
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
+const message = ref<string>("");
 
 const focus = () => {
   textareaRef.value?.focus();
 };
+
+const handleMessageInput = () => {
+  emit("input", message.value);
+};
 </script>
 
 <template>
-  <div @click="focus" class="textarea-container">
-    <textarea ref="textareaRef" placeholder="Escreva sua mensagem..." />
+  <div class="textarea-container" @click="focus">
+    <textarea
+      ref="textareaRef"
+      v-model="message"
+      placeholder="Escreva sua mensagem..."
+      @input="handleMessageInput"
+    />
     <AppButton icon="cta" variation="icon" class="upload-image">+</AppButton>
   </div>
 </template>
