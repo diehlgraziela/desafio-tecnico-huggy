@@ -18,7 +18,7 @@ defineProps<{
       <p>{{ message }}</p>
     </div>
     <span class="time caption-1">
-      {{ getTime(time) }}
+      {{ getDateTime(time) }}
     </span>
   </div>
 </template>

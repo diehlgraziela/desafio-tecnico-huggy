@@ -1,6 +1,12 @@
-export const getTime = (dateTime: string) => {
-  const time = dateTime.split(" ")[1];
-  const [hour, minute] = time.split(":");
+export const getDateTime = (dateTime: string) => {
+  const dayjs = useDayjs();
 
-  return `${hour}:${minute}`;
+  const input = dayjs(dateTime);
+  const today = dayjs();
+
+  if (input.isSame(today, "day")) {
+    return input.format("HH:mm");
+  }
+
+  return input.format("DD/MM - HH:mm");
 };
