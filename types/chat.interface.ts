@@ -1,43 +1,36 @@
 export interface Chat {
-  id: number;
   agentId: number;
-  secondAgentId: number | null;
-  contactId: number;
-  departmentId: number | null;
-  tabulationId: number | null;
-  chatTabulation: number | null;
-  lastMessage: LastMessage;
-  chatDepartment: number | null;
-  unread: number;
-  chatCustomer: ChatCustomer;
-  workflowID: null;
-  workflowStepID: null;
-  queueNumber: null;
-  situation: string;
-  createdAt: string;
-  updatedAt: string;
+  agents: Agent[];
   attendedAt: string;
-  closedAt: string | null;
-  enabledSession: boolean;
   channel: string;
   channels: Channel[];
-  agents: Agent[];
+  chatCustomer: ChatCustomer;
+  chatDepartment: number | null;
+  chatTabulation: number | null;
+  closedAt: string | null;
+  contactId: number;
+  createdAt: string;
+  departmentId: number | null;
+  enabledSession: boolean;
+  id: number;
+  lastMessage: LastMessage;
+  queueNumber: null;
+  secondAgentId: number | null;
+  situation: string;
+  tabulationId: number | null;
+  unread: number;
+  updatedAt: string;
+  workflowID: null;
+  workflowStepID: null;
 }
 
 interface LastMessage {
-  text: string;
   file: string | null;
   sendAt: string;
   senderType: string;
+  text: string;
   type: string;
-  sender: {
-    id: number;
-    name: string;
-    mobile: string | null;
-    phone: string | null;
-    email: string;
-    photo: string;
-  };
+  sender: Sender;
 }
 
 interface ChatCustomer {
@@ -73,4 +66,13 @@ interface Agent {
   statusType: number;
   photo_url: string;
   smallPhotoUrl: string;
+}
+
+interface Sender {
+  email: string;
+  id: number;
+  mobile: string | null;
+  name: string;
+  phone: string | null;
+  photo: string;
 }
