@@ -11,9 +11,13 @@ const selectedChat = ref<Chat>();
 const chatId = Number(useRoute().params.id);
 
 const getSelectedChat = async (id: number) => {
-  const response: Chat = await $fetch(`/api/chats/${id}`);
-
-  selectedChat.value = response;
+  try {
+    const response: Chat = await $fetch(`/api/chats/${id}`);
+    selectedChat.value = response;
+  } catch (error) {
+    navigateTo("/chats");
+    console.error(error);
+  }
 };
 
 const getMessages = async (id: number) => {
@@ -36,8 +40,8 @@ const sendText = async (text: string) => {
 };
 
 onMounted(async () => {
-  getSelectedChat(chatId);
   getMessages(chatId);
+  getSelectedChat(chatId);
 });
 </script>
 

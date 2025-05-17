@@ -7,16 +7,10 @@ defineProps<{
 
 const emit = defineEmits(["selectChat"]);
 
-const selectedChat = ref<Chat>({} as Chat);
 const chatId = Number(useRoute().params.id);
 
-const selectChat = (chat: Chat) => {
-  selectedChat.value = chat;
-
-  emit("selectChat", chat);
-
-  if (chat.id === chatId) return;
-  navigateTo(`/chats/${chat.id}`);
+const selectChat = (chatId: number) => {
+  emit("selectChat", chatId);
 };
 </script>
 
@@ -33,8 +27,8 @@ const selectChat = (chat: Chat) => {
         :name="chat.chatCustomer.name"
         :avatar="chat.chatCustomer.photo"
         :last-message="chat.lastMessage.text"
-        :active="selectedChat.id === chat.id"
-        @click="selectChat(chat)"
+        :active="chat.id === chatId"
+        @click="selectChat(chat.id)"
       />
     </ul>
   </aside>
