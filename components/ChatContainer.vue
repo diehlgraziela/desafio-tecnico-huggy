@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { Chat } from "~/types/chat.interface";
+import type { Message } from "~/types/message.interface";
 
 defineProps<{
   chat: Chat;
+  messages: Message[];
 }>();
 
 const end = ref<HTMLElement | null>(null);
@@ -26,7 +28,13 @@ onUpdated(() => {
     <div class="messages">
       <div class="spacer" />
 
-      <MessageCard :message="'oie, bão?'" :time="'08:57'" :sender="'user'" />
+      <MessageCard
+        v-for="message in messages"
+        :key="message.id"
+        :message="message.text"
+        :time="message.sendAt"
+        :sender="message.senderType"
+      />
 
       <div ref="end" />
     </div>

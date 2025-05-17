@@ -2,7 +2,7 @@
 defineProps<{
   message: string;
   time: string;
-  sender: "contact" | "user";
+  sender: "contact" | "agent" | string;
 }>();
 </script>
 
@@ -12,13 +12,13 @@ defineProps<{
       :class="[
         'message',
         { contact: sender === 'contact' },
-        { user: sender === 'user' },
+        { agent: sender === 'agent' },
       ]"
     >
       <p>{{ message }}</p>
     </div>
     <span class="time caption-1">
-      {{ time }}
+      {{ getTime(time) }}
     </span>
   </div>
 </template>
@@ -43,7 +43,7 @@ defineProps<{
   border-radius: 6px 6px 6px 2px;
 }
 
-.message.user {
+.message.agent {
   align-self: flex-end;
   max-width: 60%;
   background-color: var(--fill-primary-3);
@@ -52,7 +52,7 @@ defineProps<{
   border-radius: 6px 6px 2px 6px;
 }
 
-.message.user ~ .time {
+.message.agent ~ .time {
   text-align: end;
 }
 
