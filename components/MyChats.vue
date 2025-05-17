@@ -8,11 +8,15 @@ defineProps<{
 const emit = defineEmits(["selectChat"]);
 
 const selectedChat = ref<Chat>({} as Chat);
+const chatId = Number(useRoute().params.id);
 
 const selectChat = (chat: Chat) => {
   selectedChat.value = chat;
 
   emit("selectChat", chat);
+
+  if (chat.id === chatId) return;
+  navigateTo(`/chats/${chat.id}`);
 };
 </script>
 
