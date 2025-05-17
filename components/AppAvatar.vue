@@ -20,6 +20,7 @@ withDefaults(
 .avatar {
   border-radius: 8px;
   border: 1px solid var(--border-neutral-1);
+  overflow: hidden;
 }
 
 .avatar-image {

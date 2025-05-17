@@ -1,19 +1,24 @@
+<script setup lang="ts">
+defineProps<{
+  name: string;
+  lastMessage: string;
+  avatar: string;
+  active?: boolean;
+}>();
+</script>
+
 <template>
-  <li :class="['message-item', { active: active }]">
-    <AppAvatar src="https://placehold.co/40" />
+  <li :class="['chat-item', { active: active }]">
+    <AppAvatar :src="avatar" />
     <div class="message-content">
-      <h2 class="body-1-bold">João da Silva</h2>
-      <p class="body-2-regular">Tudo, e você?</p>
+      <h2 class="body-1-bold">{{ name }}</h2>
+      <p class="body-2-regular">{{ lastMessage }}</p>
     </div>
   </li>
 </template>
 
-<script setup lang="ts">
-defineProps<{ name: string; lastMessage: string; active?: boolean }>();
-</script>
-
 <style scoped>
-.message-item {
+.chat-item {
   padding: 8px;
   border-radius: 4px;
   transition: 0.1s;
@@ -24,24 +29,24 @@ defineProps<{ name: string; lastMessage: string; active?: boolean }>();
   align-items: center;
 }
 
-.message-item p {
+.chat-item p {
   color: var(--text-on-neutral-low-default);
 }
 
-.message-item.active {
+.chat-item.active {
   background: var(--fill-primary-0);
 }
 
-.message-item.active h2 {
+.chat-item.active h2 {
   color: var(--text-on-neutral-low-cta);
 }
 
-.message-item:not(.active):hover {
+.chat-item:not(.active):hover {
   background: var(--fill-primary-0);
   box-shadow: 0px 2px 8px 0px #0000001f;
 }
 
-.message-item:not(.active):active {
+.chat-item:not(.active):active {
   background: var(--fill-primary-1);
 }
 </style>

@@ -1,25 +1,29 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps<{
+  chats: any[];
+}>();
+</script>
 
 <template>
-  <aside class="my-messages">
+  <aside class="my-chats">
     <header class="header">
       <h1 class="header-title title-2">Minhas mensagens</h1>
     </header>
 
-    <ul class="messages-list">
-      <ChatCard :name="'João da Silva'" :last-message="'Tudo, e você?'" />
+    <ul class="chats-list">
       <ChatCard
-        :name="'João da Silva'"
-        :last-message="'Tudo, e você?'"
-        active
+        v-for="chat in chats"
+        :key="chat.id"
+        :name="chat.chatCustomer.name"
+        :avatar="chat.chatCustomer.photo"
+        :last-message="chat.lastMessage.text"
       />
-      <ChatCard :name="'João da Silva'" :last-message="'Tudo, e você?'" />
     </ul>
   </aside>
 </template>
 
 <style scoped>
-.my-messages {
+.my-chats {
   background: var(--fill-neutral-low-0);
   border-right: 1px solid var(--fill-neutral-low-2);
   width: 300px;
@@ -36,7 +40,7 @@
   color: var(--text-on-neutral-low-cta);
 }
 
-.messages-list {
+.chats-list {
   display: flex;
   flex-direction: column;
   gap: 4px;
