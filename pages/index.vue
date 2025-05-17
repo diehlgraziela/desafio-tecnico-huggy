@@ -1,7 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const getChats = async () => {
+  const response = await $fetch("/api/chats");
+
+  console.log(response);
+};
+</script>
 
 <template>
-  <AppButton>Hello</AppButton>
+  <div>
+    <AppButton variation="primary" @click="getChats"> Chats </AppButton>
+  </div>
 </template>
 
 <style scoped></style>
