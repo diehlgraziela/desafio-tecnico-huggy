@@ -1,7 +1,19 @@
 <script setup lang="ts">
+import type { Chat } from "~/types/chat.interface";
+
 defineProps<{
-  chats: any[];
+  chats: Chat[];
 }>();
+
+const emit = defineEmits(["selectChat"]);
+
+const selectedChat = ref<Chat>({} as Chat);
+
+const selectChat = (chat: Chat) => {
+  selectedChat.value = chat;
+
+  emit("selectChat", chat);
+};
 </script>
 
 <template>
@@ -17,6 +29,8 @@ defineProps<{
         :name="chat.chatCustomer.name"
         :avatar="chat.chatCustomer.photo"
         :last-message="chat.lastMessage.text"
+        :active="selectedChat.id === chat.id"
+        @click="selectChat(chat)"
       />
     </ul>
   </aside>
@@ -26,7 +40,8 @@ defineProps<{
 .my-chats {
   background: var(--fill-neutral-low-0);
   border-right: 1px solid var(--fill-neutral-low-2);
-  width: 300px;
+  min-width: var(--sidebar-width);
+  width: var(--sidebar-width);
   height: 100vh;
   padding: 0 8px;
 }
@@ -34,6 +49,7 @@ defineProps<{
 .header {
   padding: 16px;
   border-bottom: 1px solid var(--fill-neutral-low-2);
+  height: var(--header-height);
 }
 
 .header-title {

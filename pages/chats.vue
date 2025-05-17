@@ -1,10 +1,17 @@
 <script setup lang="ts">
-const chats = ref<any>([]);
+import type { Chat } from "~/types/chat.interface";
+
+const chats = ref<Chat[]>([] as Chat[]);
+const selectedChat = ref<Chat>();
 
 const getChats = async () => {
-  const response: any[] = await $fetch("/api/chats");
+  const response: Chat[] = await $fetch("/api/chats");
 
   chats.value = response;
+};
+
+const getSelectedChat = (chat: Chat) => {
+  selectedChat.value = chat;
 };
 
 onMounted(() => {
@@ -14,10 +21,15 @@ onMounted(() => {
 
 <template>
   <main>
-    <MyChats :chats="chats" />
+    <MyChats :chats="chats" @select-chat="getSelectedChat" />
 
-    <section>Mensagem</section>
+    <ChatContainer v-if="selectedChat" :chat="selectedChat" />
+    <EmptyContainer v-else />
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+main {
+  display: flex;
+}
+</style>

@@ -10,5 +10,6 @@ export default withNuxt({
         argsIgnorePattern: "^_",
       },
     ],
+    "@typescript-eslint/no-explicit-any": "off",
   },
 });
