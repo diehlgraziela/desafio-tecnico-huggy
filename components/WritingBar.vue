@@ -4,21 +4,20 @@ import deleteIcon from "~/assets/delete-icon.png";
 
 const emit = defineEmits(["input", "uploadImage"]);
 
+const text = defineModel<string>("text");
+const image = defineModel<string>("image");
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
 const fileInputRef = ref<HTMLInputElement | null>(null);
-const message = ref<string>("");
-const image = ref<string>("");
 
 const focus = () => {
   textareaRef.value?.focus();
 };
 
-const handleMessageInput = () => {
-  emit("input", message.value);
-};
-
 const handleImageUpload = () => {
-  if (image.value) image.value = "";
+  if (image.value) {
+    image.value = "";
+    return;
+  }
 
   fileInputRef.value?.click();
 };
@@ -51,9 +50,8 @@ const handleFileChange = (event: Event) => {
   <div class="textarea-container" @click="focus">
     <textarea
       ref="textareaRef"
-      v-model="message"
+      v-model="text"
       placeholder="Escreva sua mensagem..."
-      @input="handleMessageInput"
     />
     <div :class="['upload-image', { 'border-top': image }]">
       <div v-if="image" class="image-container">

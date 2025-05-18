@@ -15,7 +15,7 @@ defineProps<{
       <p class="body-2-regular">
         {{
           lastMessage.length > 10
-            ? lastMessage.slice(0, 10) + "..."
+            ? lastMessage.slice(0, 20) + "..."
             : lastMessage
         }}
       </p>

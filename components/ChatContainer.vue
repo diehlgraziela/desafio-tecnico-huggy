@@ -52,7 +52,7 @@ onUpdated(() => {
     </div>
 
     <div class="writing-section">
-      <WritingBar @input="text = $event" @upload-image="image = $event" />
+      <WritingBar v-model:text="text" v-model:image="image" />
       <AppButton variation="success" :disabled="!text" @click="sendText">
         Enviar
       </AppButton>

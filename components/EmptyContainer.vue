@@ -3,7 +3,9 @@
 <template>
   <div class="empty-container">
     <h3 class="title-1">Bem-vindo!</h3>
-    <p class="body-1-regular">Escolha uma mensagem para começar a conversar.</p>
+    <p class="body-1-regular">
+      Escolha uma mensagem para continuar um atendimento.
+    </p>
   </div>
 </template>
 
@@ -15,5 +17,13 @@
   display: grid;
   place-content: center;
   text-align: center;
+}
+
+h3 {
+  color: var(--text-on-neutral-low-cta);
+}
+
+p {
+  color: var(--text-on-neutral-low-default);
 }
 </style>
