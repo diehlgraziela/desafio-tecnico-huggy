@@ -54,6 +54,7 @@ const getAccessToken = async () => {
 onMounted(async () => {
   await getAccessToken();
   getChats();
+});
 </script>
 
 <template>
