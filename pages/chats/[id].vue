@@ -36,7 +36,7 @@ const getMessages = async (chatId: number) => {
       }
     );
 
-    messages.value = response.reverse();
+    messages.value = response?.length > 1 ? response.reverse() : response;
   } catch (error) {
     console.error("Error fetching messages:", error);
   }

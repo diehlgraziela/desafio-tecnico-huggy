@@ -38,7 +38,7 @@ const newChat = () => {
     </header>
 
     <ul class="chats-list">
-      <template v-if="chats.length">
+      <template v-if="chats?.length">
         <ChatCard
           v-for="chat in chats"
           :key="chat.id"
