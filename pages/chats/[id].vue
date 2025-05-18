@@ -23,7 +23,7 @@ const getSelectedChat = async (id: number) => {
     selectedChat.value = response;
   } catch (error) {
     navigateTo("/chats");
-    console.error(error);
+    console.error("Error fetching selected chat:", error);
   }
 };
 
@@ -38,7 +38,7 @@ const getMessages = async (chatId: number) => {
 
     messages.value = response.reverse();
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching messages:", error);
   }
 };
 
@@ -54,7 +54,7 @@ const sendText = async (text: string, image?: string) => {
 
     getMessages(routeChatId.value);
   } catch (error) {
-    console.error(error);
+    console.error("Error sending message:", error);
   }
 };
 
