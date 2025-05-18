@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { Token } from "~/types/auth.interface";
+
 definePageMeta({
   layout: "chat",
 });
@@ -9,23 +11,28 @@ useSeoMeta({
 });
 
 const route = useRoute();
-const accessToken = useCookie<string | null>("access_token");
+const accessToken = useCookie("access_token");
 
-onMounted(async () => {
+const getAccessToken = async () => {
   const code = route.query.code;
 
   if (!code) return;
 
-  const response = await $fetch("/api/auth/accessToken", {
+  const response: Token = await $fetch("/api/auth/accessToken", {
     method: "POST",
     body: {
       code,
     },
   });
 
-  accessToken.value = response.access_token;
+  if (response) {
+    accessToken.value = response.access_token;
+    navigateTo("/chats");
+  }
+};
 
-  navigateTo("/chats");
+onMounted(() => {
+  getAccessToken();
 });
 </script>
 
