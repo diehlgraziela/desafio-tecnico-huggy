@@ -1,8 +1,11 @@
 <script setup lang="ts">
+import type { Token } from "~/types/auth.interface";
 import type { Chat } from "~/types/chat.interface";
 
-const chats = ref<Chat[]>([]);
+const route = useRoute();
+const accessToken = useCookie("access_token");
 const chatId = Number(useRoute().params.id);
+const chats = ref<Chat[]>([]);
 
 const getChats = async () => {
   chats.value = await $fetch("/api/chats");
@@ -22,7 +25,32 @@ const getSelectedChat = async (id: number) => {
   }
 };
 
-onMounted(() => {
+useSeoMeta({
+  title: "Atendimentos",
+  ogTitle: "Atendimentos",
+});
+
+const getAccessToken = async () => {
+  const code = route.query.code;
+
+  if (!code || accessToken.value) return;
+
+  const response: Token = await $fetch("/api/auth/accessToken", {
+    method: "POST",
+    body: {
+      code,
+    },
+  });
+
+  if (response) {
+    accessToken.value = response.access_token;
+
+    navigateTo("/chats", { replace: true });
+  }
+};
+
+onMounted(async () => {
+  await getAccessToken();
   getChats();
 });
 </script>
