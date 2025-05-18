@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: "Login",
+  ogTitle: "Login",
+});
+
 const login = () => {
   navigateTo("/chats");
 };

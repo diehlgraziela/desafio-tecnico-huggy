@@ -6,6 +6,11 @@ definePageMeta({
   layout: "chat",
 });
 
+useSeoMeta({
+  title: "Atendimentos",
+  ogTitle: "Atendimentos",
+});
+
 const messages = ref<Message[]>([] as Message[]);
 const selectedChat = ref<Chat>();
 const chatId = Number(useRoute().params.id);

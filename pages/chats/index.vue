@@ -2,6 +2,11 @@
 definePageMeta({
   layout: "chat",
 });
+
+useSeoMeta({
+  title: "Atendimentos",
+  ogTitle: "Atendimentos",
+});
 </script>
 
 <template>
