@@ -2,7 +2,6 @@
 import type { Chat } from "~/types/chat.interface";
 
 const route = useRoute();
-const accessToken = useCookie("access_token");
 
 const chatId = Number(useRoute().params.id);
 

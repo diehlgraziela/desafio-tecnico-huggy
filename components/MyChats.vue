@@ -11,6 +11,8 @@ const emit = defineEmits(["selectChat", "close"]);
 
 const chatId = Number(useRoute().params.id);
 
+console.log(chatId);
+
 const selectChat = (chatId: number) => {
   emit("selectChat", chatId);
 };

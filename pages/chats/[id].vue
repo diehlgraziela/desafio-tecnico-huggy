@@ -17,7 +17,7 @@ const chatId = Number(useRoute().params.id);
 
 const getSelectedChat = async (id: number) => {
   try {
-    const response: Chat = await $fetch(`/api/chats/${id}`);
+    const response: Chat = await $fetch<unknown>(`/api/chats/${id}`);
     selectedChat.value = response;
   } catch (error) {
     navigateTo("/chats");

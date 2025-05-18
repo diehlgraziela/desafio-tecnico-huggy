@@ -12,7 +12,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
       if (response?.access_token) {
         accessToken.value = response.access_token;
-        return navigateTo("/chats");
+        return navigateTo("/chats", { replace: true });
       }
     } catch (error) {
       console.error("Erro ao obter token:", error);
