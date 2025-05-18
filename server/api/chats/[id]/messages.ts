@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig(event);
+  const accessToken = getCookie(event, "access_token");
   const method = event.method;
 
   const { id } = event.context.params!;
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
     {
       method,
       headers: {
-        Authorization: `Bearer ${config.apiSecret}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       ...(body && { body }),
     }

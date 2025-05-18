@@ -5,7 +5,6 @@ import type { Message } from "~/types/message.interface";
 definePageMeta({
   layout: "chat",
 });
-
 useSeoMeta({
   title: "Atendimentos",
   ogTitle: "Atendimentos",
@@ -26,23 +25,31 @@ const getSelectedChat = async (id: number) => {
 };
 
 const getMessages = async (id: number) => {
-  const response: Message[] = await $fetch(`/api/chats/${id}/messages`, {
-    method: "GET",
-  });
+  try {
+    const response: Message[] = await $fetch(`/api/chats/${id}/messages`, {
+      method: "GET",
+    });
 
-  messages.value = response.reverse();
+    messages.value = response.reverse();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const sendText = async (text: string, image?: string) => {
-  await $fetch(`/api/chats/${selectedChat.value?.id}/messages`, {
-    method: "POST",
-    body: {
-      text,
-      file: image,
-    },
-  });
+  try {
+    await $fetch(`/api/chats/${selectedChat.value?.id}/messages`, {
+      method: "POST",
+      body: {
+        text,
+        file: image,
+      },
+    });
 
-  getMessages(chatId);
+    getMessages(chatId);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 onMounted(async () => {

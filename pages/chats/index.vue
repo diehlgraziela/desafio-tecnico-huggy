@@ -16,7 +16,7 @@ const accessToken = useCookie("access_token");
 const getAccessToken = async () => {
   const code = route.query.code;
 
-  if (!code) return;
+  if (!code || accessToken.value) return;
 
   const response: Token = await $fetch("/api/auth/accessToken", {
     method: "POST",
@@ -27,7 +27,7 @@ const getAccessToken = async () => {
 
   if (response) {
     accessToken.value = response.access_token;
-    navigateTo("/chats");
+    navigateTo("/chats", { replace: true });
   }
 };
 

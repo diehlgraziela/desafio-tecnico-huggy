@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig(event);
+  const accessToken = getCookie(event, "access_token");
 
   const parts = await readMultipartFormData(event);
 
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
   const response = await fetch("https://api.huggy.app/v3/chats/uploadFile/", {
     method: event.method,
     headers: {
-      Authorization: `Bearer ${config.apiSecret}`,
+      Authorization: `Bearer ${accessToken}`,
     },
     body: formData,
   });
