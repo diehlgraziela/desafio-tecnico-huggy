@@ -1,29 +1,22 @@
-import { callWithNuxt } from "#app";
-
-export default defineNuxtRouteMiddleware(async (to, _) => {
-  const nuxtApp = useNuxtApp();
-  const route = useRoute();
+export default defineNuxtRouteMiddleware(async (to) => {
   const accessToken = useCookie("access_token");
 
   if (to.query.code && !accessToken.value) {
     try {
-      const code = route.query.code;
-
-      if (!code || accessToken.value) return;
+      const code = to.query.code;
 
       const response = await $fetch("/api/auth/accessToken", {
         method: "POST",
-        body: {
-          code,
-        },
+        body: { code },
       });
 
-      if (response) {
-        return callWithNuxt(nuxtApp, navigateTo, ["/chats"]);
+      if (response?.access_token) {
+        accessToken.value = response.access_token;
+        return navigateTo("/chats");
       }
     } catch (error) {
-      console.error(error);
-      return callWithNuxt(nuxtApp, navigateTo, ["/chats"]);
+      console.error("Erro ao obter token:", error);
+      return navigateTo("/");
     }
   }
 
