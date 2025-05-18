@@ -6,6 +6,9 @@ export default defineNuxtConfig({
   css: ["~/assets/index.css"],
   runtimeConfig: {
     apiSecret: process.env.API_SECRET,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackUrl: process.env.CALLBACK_URL,
   },
   app: {
     head: {

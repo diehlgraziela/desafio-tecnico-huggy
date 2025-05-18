@@ -4,8 +4,8 @@ useSeoMeta({
   ogTitle: "Login",
 });
 
-const login = () => {
-  navigateTo("/chats");
+const login = async () => {
+  window.location.href = "/api/auth";
 };
 </script>
 
@@ -15,9 +15,9 @@ const login = () => {
       <h1 class="title-1">Área de Login</h1>
       <p class="body-1">Faça login para acessar nosso super-aplicativo</p>
     </div>
-    <AppButton variation="primary" @click="login"
-      >Fazer login com a Huggy</AppButton
-    >
+    <AppButton variation="primary" @click="login">
+      Fazer login com a Huggy
+    </AppButton>
   </div>
 </template>
 
