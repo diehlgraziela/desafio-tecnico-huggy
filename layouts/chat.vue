@@ -15,7 +15,8 @@ const toggleMenu = () => {
 };
 
 const getChats = async () => {
-  chats.value = await $fetch("/api/chats");
+  const response: Chat[] = await $fetch("/api/chats");
+  chats.value = response;
 };
 
 const getSelectedChat = async (id: number) => {
@@ -50,6 +51,13 @@ const getAccessToken = async () => {
     navigateTo("/chats", { replace: true });
   }
 };
+
+watch(
+  () => route.path,
+  () => {
+    isMenuOpen.value = false;
+  }
+);
 
 onMounted(async () => {
   await getAccessToken();
