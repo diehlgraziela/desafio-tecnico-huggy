@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { Chat } from "~/types/chat.interface";
 
+const route = useRoute();
+const accessToken = useCookie("access_token");
+
 const chatId = Number(useRoute().params.id);
 
 const chats = ref<Chat[]>([]);
@@ -31,9 +34,26 @@ const getSelectedChat = async (id: number) => {
   }
 };
 
-onMounted(() => {
+const getAccessToken = async () => {
+  const code = route.query.code;
+
+  if (!code || accessToken.value) return;
+
+  const response = await $fetch("/api/auth/accessToken", {
+    method: "POST",
+    body: {
+      code,
+    },
+  });
+
+  if (response) {
+    navigateTo("/chats", { replace: true });
+  }
+};
+
+onMounted(async () => {
+  await getAccessToken();
   getChats();
-});
 </script>
 
 <template>

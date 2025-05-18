@@ -5,14 +5,12 @@ defineProps<{
   avatar: string;
   active?: boolean;
 }>();
-
-const { isMobile } = useBreakpoints();
 </script>
 
 <template>
   <li :class="['chat-item', { active: active }]">
     <AppAvatar :src="avatar" />
-    <div v-if="!isMobile" class="message-content">
+    <div class="message-content">
       <h2 class="body-1-bold">{{ name }}</h2>
       <p class="body-2-regular">
         {{
