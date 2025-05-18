@@ -15,7 +15,7 @@ const toggleMenu = () => {
 };
 
 const getChats = async () => {
-  const response: Chat[] = await $fetch("/api/chats");
+  const response: Chat[] = await $fetch<unknown>("/api/chats");
   chats.value = response;
 };
 
@@ -36,19 +36,23 @@ const getSelectedChat = async (id: number) => {
 };
 
 const getAccessToken = async () => {
-  const code = route.query.code;
+  try {
+    const code = route.query.code;
 
-  if (!code || accessToken.value) return;
+    if (!code || accessToken.value) return;
 
-  const response = await $fetch("/api/auth/accessToken", {
-    method: "POST",
-    body: {
-      code,
-    },
-  });
+    const response = await $fetch("/api/auth/accessToken", {
+      method: "POST",
+      body: {
+        code,
+      },
+    });
 
-  if (response) {
-    navigateTo("/chats", { replace: true });
+    if (response) {
+      navigateTo("/chats", { replace: true });
+    }
+  } catch (error) {
+    console.error(error);
   }
 };
 
