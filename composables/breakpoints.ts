@@ -1,5 +1,5 @@
 export function useBreakpoints() {
-  const innerWidth = ref<number>(window.innerWidth);
+  const innerWidth = ref<number>(0);
   const isMobile = computed(() => innerWidth.value < 768);
 
   const browserResize = () => {

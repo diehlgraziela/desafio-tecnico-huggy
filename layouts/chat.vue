@@ -4,31 +4,36 @@ import type { Chat } from "~/types/chat.interface";
 
 const route = useRoute();
 const accessToken = useCookie("access_token");
+
 const chatId = Number(useRoute().params.id);
+
 const chats = ref<Chat[]>([]);
+const loadingChats = ref<boolean>(false);
+const isMenuOpen = ref(false);
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
 
 const getChats = async () => {
   chats.value = await $fetch("/api/chats");
 };
 
 const getSelectedChat = async (id: number) => {
+  loadingChats.value = true;
   try {
     if (id === chatId) return;
 
     await $fetch(`/api/chats/${id}`);
 
-    console.log("passou do if");
     navigateTo(`/chats/${id}`);
   } catch (error) {
     navigateTo("/chats");
     console.error(error);
+  } finally {
+    loadingChats.value = false;
   }
 };
-
-useSeoMeta({
-  title: "Atendimentos",
-  ogTitle: "Atendimentos",
-});
 
 const getAccessToken = async () => {
   const code = route.query.code;
@@ -57,7 +62,18 @@ onMounted(async () => {
 
 <template>
   <main>
-    <MyChats :chats="chats" @select-chat="getSelectedChat" />
+    <header class="hamburguer">
+      <AppButton variation="icon" icon="cta" @click="toggleMenu">
+        <img src="/assets/menu-icon.png" />
+      </AppButton>
+    </header>
+    <MyChats
+      :chats="chats"
+      :loading="loadingChats"
+      :open="isMenuOpen"
+      @close="toggleMenu"
+      @select-chat="getSelectedChat"
+    />
     <slot />
   </main>
 </template>
@@ -65,5 +81,16 @@ onMounted(async () => {
 <style scoped>
 main {
   display: flex;
+}
+
+.hamburguer {
+  display: none;
+  padding: 16px;
+}
+
+@media (max-width: 768px) {
+  .hamburguer {
+    display: block;
+  }
 }
 </style>
