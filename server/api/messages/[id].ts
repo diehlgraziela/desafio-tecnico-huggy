@@ -3,12 +3,15 @@ export default defineEventHandler(async (event) => {
 
   const { id } = event.context.params!;
 
-  const response = await $fetch(`https://api.huggy.app/v3/chats/${id}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  const response = await $fetch(
+    `https://api.huggy.app/v3/chats/${id}/messages`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
 
   return response;
 });
