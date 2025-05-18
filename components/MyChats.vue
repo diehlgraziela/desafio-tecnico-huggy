@@ -9,9 +9,9 @@ defineProps<{
 
 const emit = defineEmits(["selectChat", "close"]);
 
-const chatId = Number(useRoute().params.id);
+const route = useRoute();
 
-console.log(chatId);
+const routeChatId = computed(() => Number(route.params.id));
 
 const selectChat = (chatId: number) => {
   emit("selectChat", chatId);
@@ -45,7 +45,7 @@ const newChat = () => {
           :name="chat.chatCustomer.name"
           :avatar="chat.chatCustomer.photo"
           :last-message="chat.lastMessage.text"
-          :active="chat.id === chatId"
+          :active="chat.id === routeChatId"
           @click="selectChat(chat.id)"
         />
       </template>

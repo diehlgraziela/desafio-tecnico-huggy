@@ -3,11 +3,11 @@ import type { Chat } from "~/types/chat.interface";
 
 const route = useRoute();
 
-const chatId = Number(useRoute().params.id);
-
 const chats = ref<Chat[]>([]);
 const loadingChats = ref<boolean>(false);
 const isMenuOpen = ref(false);
+
+const routeChatId = computed(() => Number(route.params.id));
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -18,14 +18,14 @@ const getChats = async () => {
   chats.value = response;
 };
 
-const getSelectedChat = async (id: number) => {
+const getSelectedChat = async (chatId: number) => {
   loadingChats.value = true;
   try {
-    if (id === chatId) return;
+    if (chatId === routeChatId.value) return;
 
-    await $fetch(`/api/chats/${id}`);
+    await $fetch(`/api/chats/${chatId}`);
 
-    navigateTo(`/chats/${id}`);
+    navigateTo(`/chats/${chatId}`);
   } catch (error) {
     navigateTo("/chats");
     console.error(error);

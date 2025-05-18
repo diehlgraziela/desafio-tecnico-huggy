@@ -11,9 +11,11 @@ useSeoMeta({
   ogTitle: "Atendimentos",
 });
 
+const route = useRoute();
 const messages = ref<Message[]>([] as Message[]);
 const selectedChat = ref<Chat>();
-const chatId = Number(useRoute().params.id);
+
+const routeChatId = computed(() => Number(route.params.id));
 
 const getSelectedChat = async (id: number) => {
   try {
@@ -27,9 +29,12 @@ const getSelectedChat = async (id: number) => {
 
 const getMessages = async (id: number) => {
   try {
-    const response: Message[] = await $fetch(`/api/chats/${id}/messages`, {
-      method: "GET",
-    });
+    const response: Message[] = await $fetch<unknown>(
+      `/api/chats/${id}/messages`,
+      {
+        method: "GET",
+      }
+    );
 
     messages.value = response.reverse();
   } catch (error) {
@@ -47,15 +52,15 @@ const sendText = async (text: string, image?: string) => {
       },
     });
 
-    getMessages(chatId);
+    getMessages(routeChatId.value);
   } catch (error) {
     console.error(error);
   }
 };
 
 onMounted(async () => {
-  getMessages(chatId);
-  getSelectedChat(chatId);
+  getMessages(routeChatId.value);
+  getSelectedChat(routeChatId.value);
 });
 </script>
 
