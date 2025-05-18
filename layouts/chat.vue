@@ -35,27 +35,6 @@ const getSelectedChat = async (id: number) => {
   }
 };
 
-const getAccessToken = async () => {
-  try {
-    const code = route.query.code;
-
-    if (!code || accessToken.value) return;
-
-    const response = await $fetch("/api/auth/accessToken", {
-      method: "POST",
-      body: {
-        code,
-      },
-    });
-
-    if (response) {
-      navigateTo("/chats", { replace: true });
-    }
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 watch(
   () => route.path,
   () => {
@@ -63,8 +42,7 @@ watch(
   }
 );
 
-onMounted(async () => {
-  await getAccessToken();
+onMounted(() => {
   getChats();
 });
 </script>
