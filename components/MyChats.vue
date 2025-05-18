@@ -132,10 +132,12 @@ const newChat = () => {
     z-index: 998;
     border-right: none;
     transform: translateX(-100%);
+    display: none;
   }
 
   .my-chats.open {
     transform: translateX(0);
+    display: block;
   }
 }
 </style>
