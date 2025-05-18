@@ -4,8 +4,7 @@ definePageMeta({
 });
 
 const login = async () => {
-  // window.location.href = "/api/auth";
-  navigateTo("/chats");
+  window.location.href = "/api/auth";
 };
 </script>
 
