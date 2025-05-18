@@ -21,15 +21,26 @@ const selectChat = (chatId: number) => {
     </header>
 
     <ul class="chats-list">
-      <ChatCard
-        v-for="chat in chats"
-        :key="chat.id"
-        :name="chat.chatCustomer.name"
-        :avatar="chat.chatCustomer.photo"
-        :last-message="chat.lastMessage.text"
-        :active="chat.id === chatId"
-        @click="selectChat(chat.id)"
-      />
+      <template v-if="chats.length">
+        <ChatCard
+          v-for="chat in chats"
+          :key="chat.id"
+          :name="chat.chatCustomer.name"
+          :avatar="chat.chatCustomer.photo"
+          :last-message="chat.lastMessage.text"
+          :active="chat.id === chatId"
+          @click="selectChat(chat.id)"
+        />
+      </template>
+      <template v-else>
+        <li v-for="n in 3" :key="n" class="skeleton-item">
+          <AppSkeleton variation="avatar" />
+          <div class="skeleton-info">
+            <AppSkeleton variation="text" />
+            <AppSkeleton variation="text" width="180px" />
+          </div>
+        </li>
+      </template>
     </ul>
   </aside>
 </template>
@@ -59,5 +70,17 @@ const selectChat = (chatId: number) => {
   flex-direction: column;
   gap: 4px;
   padding: 8px 0;
+}
+
+.skeleton-item {
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.skeleton-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 </style>

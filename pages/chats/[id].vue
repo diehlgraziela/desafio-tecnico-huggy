@@ -53,7 +53,7 @@ onMounted(async () => {
     :messages="messages"
     @send-text="sendText"
   />
-  <div v-else>Carregando...</div>
+  <LoadingContainer v-else />
 </template>
 
 <style scoped></style>
