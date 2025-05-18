@@ -1,5 +1,8 @@
 export default defineNuxtRouteMiddleware(async (to) => {
+  const config = useRuntimeConfig();
   const accessToken = useCookie("access_token");
+
+  if (process.env.NODE_ENV === "development") return;
 
   if (to.query.code && !accessToken.value) {
     try {

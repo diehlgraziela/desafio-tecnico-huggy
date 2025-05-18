@@ -7,8 +7,6 @@ const chats = ref<Chat[]>([]);
 const loadingChats = ref<boolean>(false);
 const isMenuOpen = ref(false);
 
-const routeChatId = computed(() => Number(route.params.id));
-
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
@@ -26,16 +24,7 @@ const getChats = async () => {
 };
 
 const getSelectedChat = async (chatId: number) => {
-  try {
-    if (chatId === routeChatId.value) return;
-
-    await $fetch(`/api/chats/${chatId}`);
-
-    navigateTo(`/chats/${chatId}`);
-  } catch (error) {
-    navigateTo("/chats");
-    console.error("Error fetching selected chat:", error);
-  }
+  navigateTo(`/chats/${chatId}`);
 };
 
 watch(

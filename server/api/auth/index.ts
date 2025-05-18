@@ -1,6 +1,10 @@
 export default defineEventHandler((event) => {
   const config = useRuntimeConfig(event);
 
+  if (process.env.NODE_ENV === "development") {
+    return sendRedirect(event, "http://localhost:3000/chats");
+  }
+
   const query = new URLSearchParams({
     scope: "install_app read_agent_profile",
     response_type: "code",

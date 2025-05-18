@@ -1,10 +1,18 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   name: string;
-  lastMessage: string;
+  lastMessage: string | null;
   avatar: string;
   active?: boolean;
 }>();
+
+const formattedMessage = computed(() => {
+  if (!props.lastMessage) return "";
+
+  return props.lastMessage.length > 10
+    ? props.lastMessage.slice(0, 20) + "..."
+    : props.lastMessage;
+});
 </script>
 
 <template>
@@ -13,11 +21,7 @@ defineProps<{
     <div class="message-content">
       <h2 class="body-1-bold">{{ name }}</h2>
       <p class="body-2-regular">
-        {{
-          lastMessage.length > 10
-            ? lastMessage.slice(0, 20) + "..."
-            : lastMessage
-        }}
+        {{ formattedMessage }}
       </p>
     </div>
   </li>
