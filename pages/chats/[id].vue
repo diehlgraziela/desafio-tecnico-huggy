@@ -4,6 +4,7 @@ import type { Message } from "~/types/message.interface";
 
 definePageMeta({
   layout: "chat",
+  middleware: "auth",
 });
 useSeoMeta({
   title: "Atendimentos",

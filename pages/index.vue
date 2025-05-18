@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: "auth",
+});
+
 const login = async () => {
   window.location.href = "/api/auth";
 };
