@@ -4,7 +4,7 @@ export default defineEventHandler((event) => {
   const query = new URLSearchParams({
     scope: "install_app read_agent_profile",
     response_type: "code",
-    redirect_uri: config.callbackUrl,
+    redirect_uri: "https://desafio-tecnico-huggy.netlify.app/chats",
     client_id: config.clientId,
   });
 
