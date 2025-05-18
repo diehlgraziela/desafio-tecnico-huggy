@@ -81,6 +81,8 @@ main {
 @media (max-width: 768px) {
   .hamburguer {
     display: block;
+    position: absolute;
+    right: 0;
   }
 }
 </style>
