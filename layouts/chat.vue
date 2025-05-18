@@ -14,12 +14,18 @@ const toggleMenu = () => {
 };
 
 const getChats = async () => {
-  const response: Chat[] = await $fetch<unknown>("/api/chats");
-  chats.value = response;
+  loadingChats.value = true;
+  try {
+    const response: Chat[] = await $fetch<unknown>("/api/chats");
+    chats.value = response;
+  } catch (error) {
+    console.error("Error fetching chats:", error);
+  } finally {
+    loadingChats.value = false;
+  }
 };
 
 const getSelectedChat = async (chatId: number) => {
-  loadingChats.value = true;
   try {
     if (chatId === routeChatId.value) return;
 
@@ -28,9 +34,7 @@ const getSelectedChat = async (chatId: number) => {
     navigateTo(`/chats/${chatId}`);
   } catch (error) {
     navigateTo("/chats");
-    console.error(error);
-  } finally {
-    loadingChats.value = false;
+    console.error("Error fetching selected chat:", error);
   }
 };
 

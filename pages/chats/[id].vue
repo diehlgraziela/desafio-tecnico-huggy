@@ -27,10 +27,10 @@ const getSelectedChat = async (id: number) => {
   }
 };
 
-const getMessages = async (id: number) => {
+const getMessages = async (chatId: number) => {
   try {
     const response: Message[] = await $fetch<unknown>(
-      `/api/chats/${id}/messages`,
+      `/api/messages/${chatId}`,
       {
         method: "GET",
       }
@@ -44,7 +44,7 @@ const getMessages = async (id: number) => {
 
 const sendText = async (text: string, image?: string) => {
   try {
-    await $fetch(`/api/chats/${selectedChat.value?.id}/messages`, {
+    await $fetch(`/api/messages/${selectedChat.value?.id}`, {
       method: "POST",
       body: {
         text,
