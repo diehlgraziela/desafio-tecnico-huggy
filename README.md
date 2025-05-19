@@ -2,6 +2,8 @@
 
 Este é um repositório que contém o desafio técnico para a Huggy, as tecnologias Nuxt e Vue.js 3 foram utilizadas, a estilização foi feita em CSS.
 
+O deploy é feito pela Netlify, pode ser visto utilizando o seguinte link: https://desafio-tecnico-huggy.netlify.app/
+
 ### Como rodar o projeto
 ```
 npm install
