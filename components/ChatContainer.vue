@@ -53,7 +53,11 @@ onUpdated(() => {
 
     <div class="writing-section">
       <WritingBar v-model:text="text" v-model:image="image" />
-      <AppButton variation="success" :disabled="!text" @click="sendText">
+      <AppButton
+        variation="success"
+        :disabled="!text && !image"
+        @click="sendText"
+      >
         Enviar
       </AppButton>
     </div>
