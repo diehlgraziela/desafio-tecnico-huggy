@@ -69,7 +69,7 @@ defineProps<{
 }
 
 .image-container {
-  max-width: 100%;
+  max-width: 50%;
   border-radius: 4px;
   overflow: hidden;
 }
