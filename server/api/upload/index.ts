@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
   const uploadedFile = parts?.find((part) => part.name === "file");
 
   if (!uploadedFile) {
-    return { error: "Arquivo não enviado" };
+    return { error: "File not found" };
   }
 
   const formData = new FormData();
