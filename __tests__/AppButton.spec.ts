@@ -1,6 +1,6 @@
+import AppButton from "~/components/AppButton.vue";
 import { describe, test, expect } from "vitest";
 import { mount } from "@vue/test-utils";
-import AppButton from "~/components/AppButton.vue";
 
 describe("AppButton", () => {
   test("Renders slot content", () => {
@@ -23,7 +23,7 @@ describe("AppButton", () => {
     expect(wrapper.classes()).toContain("success");
   });
 
-  test("Applies 'icon' class if variation is 'icon'", () => {
+  test("Applies 'icon' class if variation is equal to 'icon'", () => {
     const wrapper = mount(AppButton, {
       props: {
         variation: "icon",
@@ -33,7 +33,7 @@ describe("AppButton", () => {
     expect(wrapper.classes()).toContain("icon");
   });
 
-  test("Applies 'cta' class if icon is 'cta'", () => {
+  test("Applies 'cta' class if icon is equal to 'cta'", () => {
     const wrapper = mount(AppButton, {
       props: {
         icon: "cta",
@@ -43,7 +43,7 @@ describe("AppButton", () => {
     expect(wrapper.classes()).toContain("cta");
   });
 
-  test("Applies 'danger' class if icon is 'danger'", () => {
+  test("Applies 'danger' class if icon is equal to 'danger'", () => {
     const wrapper = mount(AppButton, {
       props: {
         icon: "danger",
@@ -53,7 +53,7 @@ describe("AppButton", () => {
     expect(wrapper.classes()).toContain("danger");
   });
 
-  test("Applies 'disabled' attribute if disabled prop is true", () => {
+  test("Applies 'disabled' attribute if disabled prop is equal to 'true'", () => {
     const wrapper = mount(AppButton, {
       props: {
         disabled: true,
