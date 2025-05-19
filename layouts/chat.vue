@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { fetchChats } from "~/services/chat";
 import type { Chat } from "~/types/chat.interface";
 
 const route = useRoute();
@@ -14,8 +15,7 @@ const toggleMenu = () => {
 const getChats = async () => {
   loadingChats.value = true;
   try {
-    const response: Chat[] = await $fetch<unknown>("/api/chats");
-    chats.value = response;
+    chats.value = await fetchChats();
   } catch (error) {
     console.error("Error fetching chats:", error);
   } finally {

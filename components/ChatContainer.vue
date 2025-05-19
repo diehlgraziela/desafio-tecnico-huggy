@@ -7,14 +7,14 @@ defineProps<{
   messages: Message[];
 }>();
 
-const emit = defineEmits(["sendText"]);
+const emit = defineEmits(["sendMessage"]);
 
 const text = ref<string>("");
 const image = ref<string>("");
 const end = ref<HTMLElement | null>(null);
 
-const sendText = async () => {
-  emit("sendText", text.value, image.value);
+const sendMessage = async () => {
+  emit("sendMessage", text.value, image.value);
 
   text.value = "";
   image.value = "";
@@ -56,7 +56,7 @@ onUpdated(() => {
       <AppButton
         variation="success"
         :disabled="!text && !image"
-        @click="sendText"
+        @click="sendMessage"
       >
         Enviar
       </AppButton>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { fetchChatById } from "~/services/chat";
+import { fetchMessages, sendTextMessage } from "~/services/message";
 import type { Chat } from "~/types/chat.interface";
 import type { Message } from "~/types/message.interface";
 
@@ -19,8 +21,7 @@ const routeChatId = computed(() => Number(route.params.id));
 
 const getSelectedChat = async (chatId: number) => {
   try {
-    const response: Chat = await $fetch<unknown>(`/api/chats/${chatId}`);
-    selectedChat.value = response;
+    selectedChat.value = await fetchChatById(chatId);
   } catch (error) {
     navigateTo("/chats");
     console.error("Error fetching selected chat:", error);
@@ -29,28 +30,16 @@ const getSelectedChat = async (chatId: number) => {
 
 const getMessages = async (chatId: number) => {
   try {
-    const response: Message[] = await $fetch<unknown>(
-      `/api/messages/${chatId}`,
-      {
-        method: "GET",
-      }
-    );
-
+    const response = await fetchMessages(chatId);
     messages.value = response?.length > 1 ? response.reverse() : response;
   } catch (error) {
     console.error("Error fetching messages:", error);
   }
 };
 
-const sendText = async (text: string, image?: string) => {
+const sendMessage = async (text: string, image?: string) => {
   try {
-    await $fetch(`/api/messages/${selectedChat.value?.id}`, {
-      method: "POST",
-      body: {
-        text,
-        file: image,
-      },
-    });
+    await sendTextMessage(routeChatId.value, text, image);
 
     getMessages(routeChatId.value);
   } catch (error) {
@@ -69,7 +58,7 @@ onMounted(async () => {
     v-if="selectedChat"
     :chat="selectedChat"
     :messages="messages"
-    @send-text="sendText"
+    @send-message="sendMessage"
   />
   <LoadingContainer v-else />
 </template>

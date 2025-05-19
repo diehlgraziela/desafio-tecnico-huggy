@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import uploadIcon from "~/assets/upload-icon.png";
 import deleteIcon from "~/assets/delete-icon.png";
+import { uploadImageFile } from "~/services/message";
 
 const emit = defineEmits(["input", "uploadImage"]);
 
@@ -23,18 +24,12 @@ const handleImageUpload = () => {
 };
 
 const uploadImage = async (file: File) => {
-  const formData = new FormData();
-  formData.append("file", file);
-
-  const response = await fetch("/api/upload", {
-    method: "POST",
-    body: formData,
-  });
-
-  const data = await response.json();
-  image.value = data[0].url;
-
-  emit("uploadImage", image.value);
+  try {
+    const response = await uploadImageFile(file);
+    emit("uploadImage", response);
+  } catch (error) {
+    console.error("Error uploading image:", error);
+  }
 };
 
 const handleFileChange = (event: Event) => {
