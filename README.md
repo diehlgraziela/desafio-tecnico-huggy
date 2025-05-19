@@ -17,5 +17,5 @@ npm run build
 
 ### Como rodar testes
 ```
-npm run tests
+npm run test
 ```
