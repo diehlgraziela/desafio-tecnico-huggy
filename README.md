@@ -7,7 +7,7 @@ O deploy foi feito pelo Netlify e está disponível em: https://desafio-tecnico-
 ### Como rodar o projeto
 1. Clone o repositório:
 ```
-git clone https://github.com/diehlgraziela/desafio-tecnico-huggy/
+git clone https://github.com/diehlgraziela/desafio-tecnico-huggy.git
 ```
 3. Instale as dependências:
 ```
