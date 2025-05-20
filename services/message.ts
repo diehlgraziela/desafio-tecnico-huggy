@@ -1,4 +1,4 @@
-import type { Message } from "~/types/message.interface";
+import type { ImageUpload, Message } from "~/types/message.interface";
 
 export const fetchMessages = async (chatId: number) => {
   return await $fetch<Message[]>(`/api/messages/${chatId}`, {
@@ -29,7 +29,7 @@ export const uploadImageFile = async (file: File) => {
     body: formData,
   });
 
-  const data = await response.json();
+  const data: ImageUpload[] = await response.json();
 
   return data[0].url;
 };

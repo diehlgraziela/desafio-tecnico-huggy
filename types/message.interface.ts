@@ -64,3 +64,9 @@ interface Customer {
   phone: string | null;
   photo: string;
 }
+
+export interface ImageUpload {
+  hash: string;
+  url: string;
+  type: "image" | string;
+}
