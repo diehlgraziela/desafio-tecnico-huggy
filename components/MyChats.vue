@@ -60,7 +60,7 @@ const newChat = () => {
         </li>
       </template>
       <div v-else class="no-chats">
-        <AppButton variation="primary" @click="newChat">Novo chat</AppButton>
+        <p class="body-1">Não há conversas em andamento.</p>
       </div>
     </ul>
   </aside>
