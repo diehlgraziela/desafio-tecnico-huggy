@@ -5,10 +5,10 @@ export default defineNuxtConfig({
   modules: ["@nuxt/eslint", "dayjs-nuxt"],
   css: ["~/assets/index.css"],
   runtimeConfig: {
-    accessToken: "",
-    clientId: "",
-    clientSecret: "",
-    callbackUrl: "",
+    accessToken: process.env.ACCESS_TOKEN,
+    clientId: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackUrl: process.env.CALLBACK_URL,
     public: {
       env: process.env.NODE_ENV,
     },
