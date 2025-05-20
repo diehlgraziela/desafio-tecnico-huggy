@@ -48,8 +48,6 @@ const sendMessage = async (text: string, image?: string) => {
 
     getMessages(routeChatId.value);
 
-    console.log(image);
-
     const hasImage = image;
     const message = sliceString(text, 20);
 
