@@ -22,9 +22,7 @@ export default defineEventHandler(async (event) => {
     }
   );
 
-  setCookie(event, "teste", "passou o teste", {
-    expires: new Date(Date.now() + 3600 * 1000),
-  });
+  localStorage.setItem("teste", "teste");
   setCookie(event, "access_token", response.access_token, {
     expires: new Date(Date.now() + response.expires_in * 1000),
   });
