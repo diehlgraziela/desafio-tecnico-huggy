@@ -1,8 +1,9 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);
-  const accessToken = process.env.NODE_ENV
-    ? config.apiSecret
-    : getCookie(event, "access_token");
+  const accessToken =
+    process.env.NODE_ENV === "development"
+      ? config.apiSecret
+      : getCookie(event, "access_token");
 
   const { id } = event.context.params!;
 
