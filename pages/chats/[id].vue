@@ -19,6 +19,11 @@ const selectedChat = ref<Chat>();
 
 const routeChatId = computed(() => Number(route.params.id));
 
+const updateLastMessage = inject("updateLastMessage") as (
+  id: number,
+  message: string
+) => void;
+
 const getSelectedChat = async (chatId: number) => {
   try {
     selectedChat.value = await fetchChatById(chatId);
@@ -42,6 +47,16 @@ const sendMessage = async (text: string, image?: string) => {
     await sendTextMessage(routeChatId.value, text, image);
 
     getMessages(routeChatId.value);
+
+    console.log(image);
+
+    const hasImage = image;
+    const message = sliceString(text, 20);
+
+    updateLastMessage(
+      routeChatId.value,
+      hasImage ? `📷 ${message || "Imagem"}` : message
+    );
   } catch (error) {
     console.error("Error sending message:", error);
   }

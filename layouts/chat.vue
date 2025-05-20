@@ -27,6 +27,14 @@ const getSelectedChat = async (chatId: number) => {
   navigateTo(`/chats/${chatId}`);
 };
 
+const updateLastMessage = (chatId: number, message: string) => {
+  const chat = chats.value.find((c) => c.id === chatId);
+
+  if (chat) {
+    chat.lastMessage.text = message;
+  }
+};
+
 watch(
   () => route.path,
   () => {
@@ -37,6 +45,8 @@ watch(
 onMounted(() => {
   getChats();
 });
+
+provide("updateLastMessage", updateLastMessage);
 </script>
 
 <template>

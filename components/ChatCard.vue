@@ -3,15 +3,15 @@ const props = defineProps<{
   name: string;
   lastMessage: string | null;
   avatar: string;
+  lastFile?: string | null;
   active?: boolean;
 }>();
 
 const formattedMessage = computed(() => {
-  if (!props.lastMessage) return "";
+  const hasImage = props.lastFile;
+  const message = sliceString(props.lastMessage || "", 20);
 
-  return props.lastMessage.length > 10
-    ? props.lastMessage.slice(0, 20) + "..."
-    : props.lastMessage;
+  return hasImage ? `📷 ${message || "Imagem"}` : message;
 });
 </script>
 
