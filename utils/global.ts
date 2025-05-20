@@ -10,3 +10,9 @@ export const getDateTime = (dateTime: string) => {
 
   return input.format("DD/MM - HH:mm");
 };
+
+export const sliceString = (string: string, limit: number = 20) => {
+  if (!string) return "";
+
+  return string.length > limit ? `${string.slice(0, limit)}...` : string;
+};

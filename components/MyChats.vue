@@ -45,6 +45,7 @@ const newChat = () => {
           :name="chat.chatCustomer.name"
           :avatar="chat.chatCustomer.photo"
           :last-message="chat.lastMessage.text"
+          :last-file="chat.lastMessage.file"
           :active="chat.id === routeChatId"
           @click="selectChat(chat.id)"
         />
