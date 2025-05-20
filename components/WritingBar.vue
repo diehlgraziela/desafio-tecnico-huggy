@@ -26,7 +26,8 @@ const handleImageUpload = () => {
 const uploadImage = async (file: File) => {
   try {
     const response = await uploadImageFile(file);
-    emit("uploadImage", response);
+
+    image.value = response;
   } catch (error) {
     console.error("Error uploading image:", error);
   }
@@ -51,6 +52,7 @@ const handleFileChange = (event: Event) => {
     <div :class="['upload-image', { 'border-top': image }]">
       <div v-if="image" class="image-container">
         <img :src="image" />
+        {{ image }}
       </div>
 
       <AppButton
