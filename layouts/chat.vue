@@ -27,6 +27,14 @@ const getSelectedChat = async (chatId: number) => {
   navigateTo(`/chats/${chatId}`);
 };
 
+const getAgent = async () => {
+  try {
+    return await $fetch<any>("/api/agents");
+  } catch (error) {
+    console.error("Error fetching agent:", error);
+  }
+};
+
 const updateLastMessage = (chatId: number, message: string) => {
   const chat = chats.value.find((c) => c.id === chatId);
 
@@ -44,6 +52,7 @@ watch(
 
 onMounted(() => {
   getChats();
+  getAgent();
 });
 
 provide("updateLastMessage", updateLastMessage);

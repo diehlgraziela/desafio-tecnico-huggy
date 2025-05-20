@@ -1,0 +1,15 @@
+export default defineEventHandler(async (event) => {
+  const config = useRuntimeConfig(event);
+  const accessToken = process.env.NODE_ENV
+    ? config.apiSecret
+    : getCookie(event, "access_token");
+
+  const result = await $fetch("https://api.huggy.app/v3/agents/profile", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+
+  return result;
+});
