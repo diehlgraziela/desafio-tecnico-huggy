@@ -1,8 +1,8 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);
   const accessToken =
-    process.env.NODE_ENV === "development"
-      ? config.apiSecret
+    config.public.env === "development"
+      ? config.accessToken
       : getCookie(event, "access_token");
 
   const parts = await readMultipartFormData(event);
