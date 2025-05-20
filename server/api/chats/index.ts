@@ -1,6 +1,8 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event);
-  const accessToken = config.apiSecret;
+  const accessToken = process.env.NODE_ENV
+    ? config.apiSecret
+    : getCookie(event, "access_token");
 
   const result = await $fetch("https://api.huggy.app/v3/chats", {
     method: "GET",
