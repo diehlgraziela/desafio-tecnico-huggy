@@ -16,10 +16,6 @@ const routeChatId = computed(() => Number(route.params.id));
 const selectChat = (chatId: number) => {
   emit("selectChat", chatId);
 };
-
-const newChat = () => {
-  window.open("https://www.huggy.app/panel/contacts", "_blank");
-};
 </script>
 
 <template>
@@ -60,7 +56,7 @@ const newChat = () => {
         </li>
       </template>
       <div v-else class="no-chats">
-        <AppButton variation="primary" @click="newChat">Novo chat</AppButton>
+        <p class="body-1">Não há mensagens no momento.</p>
       </div>
     </ul>
   </aside>
