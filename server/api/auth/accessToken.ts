@@ -22,6 +22,7 @@ export default defineEventHandler(async (event) => {
     }
   );
 
+  setCookie(event, "teste", "passou o teste");
   setCookie(event, "access_token", response.access_token, {
     expires: new Date(Date.now() + response.expires_in * 1000),
   });
