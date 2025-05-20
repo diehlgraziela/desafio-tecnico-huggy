@@ -18,7 +18,7 @@ const selectChat = (chatId: number) => {
 };
 
 const newChat = () => {
-  window.open("https://www.huggy.app/panel/chats", "_blank");
+  window.open("https://www.huggy.app/panel/contacts", "_blank");
 };
 </script>
 

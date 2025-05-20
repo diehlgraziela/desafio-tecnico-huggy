@@ -11,7 +11,7 @@ export const sendTextMessage = async (
   text: string,
   image?: string
 ) => {
-  return await $fetch(`/api/messages/${id}`, {
+  return await $fetch<Message>(`/api/messages/${id}`, {
     method: "POST",
     body: {
       text,
