@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const formattedMessage = computed(() => {
   const hasImage = props.lastFile;
-  const message = sliceString(props.lastMessage || "", 20);
+  const message = props.lastMessage;
 
   return hasImage ? `📷 ${message || "Imagem"}` : message;
 });
@@ -39,8 +39,15 @@ const formattedMessage = computed(() => {
   align-items: center;
 }
 
+.message-content {
+  min-width: 0;
+}
+
 .chat-item p {
   color: var(--text-on-neutral-low-default);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .chat-item.active {

@@ -30,11 +30,15 @@ withDefaults(
 }
 
 .avatar.big {
+  min-width: 52px;
+  min-height: 52px;
   width: 52px;
   height: 52px;
 }
 
 .avatar.small {
+  min-width: 40px;
+  min-height: 40px;
   width: 40px;
   height: 40px;
 }
